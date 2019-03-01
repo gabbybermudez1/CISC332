@@ -1,6 +1,5 @@
 (Home page)
-- a list of running totals aaaaaaaaaaaaaaaaaaaaaaa
-
+- a list of running totals 
 
 (organizing Comittee pages) 
 - dropdown on the menu bar with each subcomittee
