@@ -1,0 +1,40 @@
+(Home page)
+- a list of running totals 
+
+
+(organizing Comittee pages) 
+- dropdown on the menu bar with each subcomittee
+- Clicking on each subcomittee leads you to a different page
+
+(Student Housing)
+- Link on the menu bar
+- Takes you to a page where there can be a dropdown that can populate a table with student data 
+
+ (Conference)
+- Link on the menu bar
+- Have a tab divider that shows you the events on each day: https://hacking-health.org/hh-events/
+- Table where you have a row represent each event 
+- Each event is editable by clicking on a "pencil icon"
+- individual pages have an event
+
+(Company) 
+- List everything in one table (like their rank, company name, )
+- clicking a company name leads you to a page with the company's job
+- option to add  a company on the page 
+- option to delete
+ |
+ v
+(Job)
+- drop down of all the companies
+- clicking a company filters out the company 
+
+(Attendees Page)
+- Table of all attendees
+- Plus sign to add a new attendees(try to make it a pop up instead of a separate page)
+	- clicking radio button of type of attendee changes what kind of forms you are given
+
+General Info:
+
+
+- anytime someone has a submitted incorrect information, there will be a pop up
+- Suggested room numbers and student ids for studentssss being added 
