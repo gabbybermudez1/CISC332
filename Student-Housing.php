@@ -53,8 +53,8 @@
                     $rows2=$stmt2->fetchAll();
                     foreach ($rows2 as $output){
                         echo "<tr>";
-                        echo "<td> lol </td> ";
-                        echo " <td>  lol</td>";
+                        echo "<td> ".  $rm . " </td> ";
+                        echo "<td> ".  $output['first_name']. " " .$output['last_name'] . " </td> ";
                         echo "</tr>";
                     }
                 }
