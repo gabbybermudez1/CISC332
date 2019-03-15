@@ -24,6 +24,7 @@
 <html>
 <!-- Student Housing -->
     <head>
+        <link rel="stylesheet" href="Student-Housing.css" />
         <title> Student Housing </title>
     </head>
     <form method = "post">
