@@ -13,7 +13,7 @@
 - Link on the menu bar 
 - Have a tab divider that shows you the events on each day: https://hacking-health.org/hh-events/ (done)
 - Table where you have a row represent each event  (done)
-- Each event is editable by clicking on a "pencil icon"
+- Each event is editable by clicking on a "pencil icon" (done)
 - individual pages have an event
 
 (Company) (Gabby)

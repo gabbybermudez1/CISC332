@@ -70,19 +70,23 @@
 
     <div id="myModal" class="modal">
         <!-- Modal content -->
+        
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3> Edit Event</h3>
-            <form class="modal-form"> 
-                <label> Session </label>
-                <input type="text" id="sessionEditor" />
-                <label> Day </label>
-                <input type="text"  />
-                <label> Start Time </label>
-                <input type="text"  />
-                <label> End Time </label>
-                <input type="text"  />
-            </form>
+        <span class="close">&times;</span>
+            <div class="center-form">
+                <form class="modal-form"> 
+                    <h3> Edit Event</h3>
+                    <label> Session </label>
+                    <input type="text" id="sessionEditor" />
+                    <label> Day </label>
+                    <input type="text"  />
+                    <label> Start Time </label>
+                    <input type="text"  />
+                    <label> End Time </label>
+                    <input type="text"  />
+                    <input type=submit />
+                </form>
+            </div>
         </div>
     </div>
 
