@@ -123,18 +123,25 @@ if(isset($_POST["event-changes"])){
     
     }
 
-    $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t=$start_t, end_t=$end_t, speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
+    else{
+        $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
     
-    echo $editSql;
+  
 
-    // try{
-    //     $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
-    //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // }
-    // catch(PDOException $e){
-    //     echo "Connection failed: " . $e->getMessage();
-    // }
-    // $db = null;
+        try{
+            $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $db->prepare($editSql);
+            $stmt->execute();
+            echo "sql successfully sent!!!!!!";
+        }
+        catch(PDOException $e){
+            echo "Connection failed: " . $e->getMessage();
+        }
+        $db = null;
+    }
+
+    
 }
 
 ?>
@@ -158,13 +165,3 @@ closeModal.onclick = function() {
 
 </script> 
 
-
-<!-- 
-UPDATE sessions 
-SET session='OS Systems', session_day='Day 1',speaker_first='Gabby', speaker_last='Bermudez' WHERE session='OS Systems'
-
-
-UPDATE sessions 
-SET session='OS Systems', session_day='Day 1', 
-speaker_first='Gabby', speaker_last='Bee' 
-WHERE session='OS Systems' -->
