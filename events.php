@@ -86,7 +86,7 @@
                     <input type="text" name="start-time-input"  />
                     <label> End Time </label>
                     <input type="text"  name="end-time-input"/>
-                    <input type=submit name="event-changes"/>
+                    <input type=submit name="event-changes"/>>
                 </form>
             </div>
         </div>
@@ -122,7 +122,6 @@ if(isset($_POST["event-changes"])){
         echo "You've entered invalid information. Nothing was updated in the database. Please try again";
     
     }
-
     else{
         $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
     
@@ -151,7 +150,6 @@ if(isset($_POST["event-changes"])){
 var modal = document.getElementById('myModal');
 var sessionEditor = document.querySelector('#session-editor');
 var closeModal = document.getElementsByClassName("close")[0]; 
-
 
 editHandler = (eventID) =>{
     console.log("The event selected is: " + eventID);
