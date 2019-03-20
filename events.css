@@ -70,3 +70,9 @@ cursor: pointer;
 #edit-icon{
     height: 10%;
 }
+
+
+.error-message{
+    color:red;
+
+}

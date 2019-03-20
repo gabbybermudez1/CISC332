@@ -58,10 +58,8 @@
                 };
             }
             catch(PDOException $e){
-                echo "Connection failed: " . $e->getMessage();
+                echo "<h1 class='error-message'>Connection to the database failed: " . $e->getMessage() . "</h1>";
             }
-            // end connection
-            $db = null;
             ?>
         </table>
     </div>
@@ -95,7 +93,7 @@
 </body>
 </html>
 
-<!-- PHP code for the form inside the modal! -->
+<!-- PHP code for the form inside the modal-->
 <?php 
 
 // helper function that allows us to split the name of a user
@@ -105,9 +103,6 @@ function splitName($fullName){
 }
 
 if(isset($_POST["event-changes"])){
-    $servername = "localhost";
-    $databaseName = "conference_db";
-    $username = "root";
 
     //variables named the same way they are in the database
     $session = $_POST['session-input'];
@@ -125,11 +120,7 @@ if(isset($_POST["event-changes"])){
     else{
         $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
     
-  
-
         try{
-            $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $stmt = $db->prepare($editSql);
             $stmt->execute();
             echo "sql successfully sent!!!!!!";
