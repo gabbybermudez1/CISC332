@@ -32,11 +32,10 @@ table, tr, th, td{
 }
 
 .modal-content {
-    /* border: 2px solid red; */
+    border: 2px solid red;
     background-color:white;
     width: 50%;
-    height: 50%;
-   
+    height: 50%;   
 }
 
 .modal-form {
@@ -45,8 +44,8 @@ table, tr, th, td{
     flex-wrap: wrap;
     justify-content: center;
     align-items:center;
-    /* border: 2px solid #ff33ee; */
-    width:50%
+    border: 2px solid #ff33ee;
+    width:50%;
     /* align-items:space-evenly; */
 }
 
@@ -71,4 +70,3 @@ cursor: pointer;
 #edit-icon{
     height: 10%;
 }
-

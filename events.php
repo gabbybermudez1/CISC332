@@ -139,8 +139,6 @@ if(isset($_POST["event-changes"])){
         }
         $db = null;
     }
-
-    
 }
 
 ?>

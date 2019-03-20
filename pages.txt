@@ -2,14 +2,14 @@
 - a list of running totals 
 
 (organizing Comittee pages)  (Gabby)
-- dropdown on the menu bar with each subcomittee
-- Clicking on each subcomittee leads you to a different page
+- dropdown on the menu bar with each subcomittee (done)
+- Clicking on each subcomittee leads you to a different page (done)
 
 (Student Housing) (Jaqueline)
 - Link on the menu bar
 - Takes you to a page where there can be a dropdown that can populate a table with student data 
 
- (Conference) (Gabby)
+ (Conference) (Gabby)(basically done)
 - Link on the menu bar 
 - Have a tab divider that shows you the events on each day: https://hacking-health.org/hh-events/ (done)
 - Table where you have a row represent each event  (done)
