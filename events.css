@@ -16,63 +16,20 @@ table, tr, th, td{
     justify-content: center;
 }
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    justify-content: center;
-    align-items:center;
-}
-
-.modal-content {
-    border: 2px solid red;
-    background-color:white;
-    width: 50%;
-    height: 50%;   
-}
-
-.modal-form {
+.modal-content{
+    width: 60%;
     display:flex;
     flex-direction:column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items:center;
-    border: 2px solid #ff33ee;
-    width:50%;
-    /* align-items:space-evenly; */
+    justify-content: space-between;
+    /* align-items:center; */
 }
 
-.center-form {
+.modal-form{
     display:flex;
-    justify-content:center;
-}
-
-.close {
-color: #aaa;
-float: right;
-font-size: 28px;
-font-weight: bold;
-}
-  
-.close:hover, .close:focus {
-color: black;
-text-decoration: none;
-cursor: pointer;
+    flex-direction:row;
+    justify-content: center;
 }
 
 #edit-icon{
     height: 10%;
-}
-
-
-.error-message{
-    color:red;
-
 }
