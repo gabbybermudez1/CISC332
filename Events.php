@@ -24,7 +24,7 @@ function splitName($fullName){
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="Events-Copy.css" />
+    <link rel="stylesheet" href="Events.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css"/>
     <title> Title </title>
 </head>
@@ -101,7 +101,7 @@ function splitName($fullName){
 <script src="./tingle/src/tingle.js"></script>
 <script>
 let modalContent = `
-                <form class="modal-form" name='modal-form' method="POST" action='NewEvents.php'  > 
+                <form class="modal-form" name='modal-form' method="POST" action='Events.php'  > 
                 <div class='modal-content'>
                         <h3 style='align-self:center;'> Edit Event</h3>
                         <label> Speaker Name (First and Last) </label>
