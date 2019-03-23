@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" href="Companies.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css">
+    
+    <a href="Home Page.php">Home</a>
     <title> Companies </title>
 </head>
 <body>

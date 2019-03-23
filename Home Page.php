@@ -26,17 +26,22 @@
 <head>
         <title> Home </title>
 </head>
+<a href="Jobs.php">Jobs</a>
+<a href="Companies.php">Companies</a>
+<a href="Student-Housing.php">Student Housing</a>
+<a href="Committee.php">Committees</a>
+
 <body>
-        <h1> Student Housing </h1>
+        <h1> Welcome </h1>
 
 <?php
-    echo "Students: ";
+    echo "Number of students attending: ";
     echo $numStudents."<br>";
     
-    echo "Pros: ";
+    echo "Number of professionals attending: ";
     echo $numPros."<br>";
 
-    echo "Sponsors: ";
+    echo "Number of sponsors attending: ";
     echo $numSponsors;
 ?>
 </body>

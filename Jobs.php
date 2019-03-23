@@ -26,16 +26,21 @@
 <!-- Jobs -->
     <head>
         <title> Jobs </title>
-    </head>
+    </head>    
+    <a href="Home Page.php">Home</a>
+    
     <form method = "post">
+    
     <body>
         <h1> Jobs </h1>
+          
         <select name = 'company' id = 'company' onchange = "this.form.submit();">
             
             <?php
             //echo "<option>". $temp ."</option>";
             echo $company;
-            echo "<option> -- Select Company -- </option>";  
+            echo "<option> -- Select Company -- </option>";
+            echo "<option> All </option>";
                 foreach ($rows as $output) {
                     echo " <option> " . $output['company'] . " </option> ";
                 };
@@ -49,26 +54,30 @@
                 <th> Location </th>
             </tr>
             <?php 
+            $sql2="select * from jobs";
             if(isset($_POST['company'])){
-                $sql2="select * from jobs where company = '$company'";
-                try {
-                    $stmt2=$conn->prepare($sql2);
-                    $stmt2->execute();
-                    $rows2=$stmt2->fetchAll();
-                    foreach ($rows2 as $output){
-                       
-                        echo "<tr>";
-                        echo "<td> ".  $output['title']. " </td> ";                        
-                        echo "<td> ".  $output['pay']. " </td> ";                        
-                        echo "<td> ".  $output['location'] . " </td> ";
-                        echo "</tr>";
-                    }
+                if ($company != "All"){
+                    $sql2 = $sql2. " where company = '$company'";
                 }
-                catch(Exception $e){
-                    echo "Connection failed: " . $e->getMessage();
-                    die;
-                } 
             }
+            try {
+                $stmt2=$conn->prepare($sql2);
+                $stmt2->execute();
+                $rows2=$stmt2->fetchAll();
+                foreach ($rows2 as $output){
+                   
+                    echo "<tr>";
+                    echo "<td> ".  $output['title']. " </td> ";                        
+                    echo "<td> ".  $output['pay']. " </td> ";                        
+                    echo "<td> ".  $output['location'] . " </td> ";
+                    echo "</tr>";
+                }
+            }
+            catch(Exception $e){
+                echo "Connection failed: " . $e->getMessage();
+                die;
+            } 
+        
             ?>
         
         <table>
