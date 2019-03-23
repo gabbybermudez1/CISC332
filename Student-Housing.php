@@ -3,7 +3,8 @@
     $username = "root";
     $conn = new PDO("mysql:host=$servername;dbname=conference_db", $username, "");
     $sql="select room_number from rooms";
-    $rm = null;
+    $rm = "null";
+    $temp = "-- Select Room Number --";
     try {
         $stmt=$conn->prepare($sql);
         $stmt->execute();
@@ -15,7 +16,7 @@
     }
     if(isset($_POST['rm_num'])){
         $rm = $_POST['rm_num'];
-        echo "The room number chosen is: $rm";
+        $temp = $rm;
     }
 ?>
 
@@ -33,9 +34,11 @@
         <!--$rm = $_POST['room_number'];?>-->
         <select name = 'rm_num' id = 'rm_num' onchange = "this.form.submit();">
         <!--<input type="submit" name = "submit" value = "Get selected value"/>   -->
-            <option> -- Select Room Number -- </option>
-            <?php 
-                foreach ($rows as $output) {
+            
+            <?php
+                //echo "<option>". $temp.  "</option>";
+                echo "<option> -- Select Room Number -- </option>";    
+                foreach ($rows as $output) {                                    
                     echo " <option> " . $output["room_number"] . " </option> ";
                 };
             ?>    
@@ -48,6 +51,7 @@
             <?php 
             if(isset($_POST['rm_num'])){
                 $sql2="select * from students where room_number = '$rm'";
+                echo "Room Number: ". $rm;
                 try {
                     $stmt2=$conn->prepare($sql2);
                     $stmt2->execute();
