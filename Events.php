@@ -26,7 +26,7 @@ function splitName($fullName){
 <head>
     <link rel="stylesheet" href="Events.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css"/>
-    <title> Title </title>
+    <title> Events </title>
 </head>
 <body>
     <div class="tab_container"> 
@@ -99,6 +99,8 @@ function splitName($fullName){
 </body>
 
 <script src="./tingle/src/tingle.js"></script>
+
+
 <script>
 let modalContent = `
                 <form class="modal-form" name='modal-form' method="POST" action='Events.php'  > 
