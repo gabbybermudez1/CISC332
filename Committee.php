@@ -11,6 +11,7 @@
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
     }
+    $temp = "\n"
 
 ?>
 
@@ -18,6 +19,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <a href="Home Page.php">Home</a>
     <link rel="stylesheet" href="Committee.css" />
     <title> Committees </title>
 </head>
@@ -46,6 +49,7 @@
     <?php 
     if (isset($_GET['committee-input'])){
         $subcommittee_name = $_GET['committee-input'];
+        $temp = $subcommittee_name;
         $sql2 = "SELECT subcommittee_name, first_name, last_name FROM subcommittee_members WHERE subcommittee_name='$subcommittee_name'";
         $stmt2 = $db->prepare($sql2);
         $stmt2->execute();
@@ -56,6 +60,8 @@
             echo "<td> " . $row['first_name']. " " . $row['last_name']  .  "</td>";
             echo "</tr>";
         }
+        
+        echo $temp;
     }
     ?>
 </table>

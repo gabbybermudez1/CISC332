@@ -26,18 +26,71 @@
 <head>
         <title> Home </title>
 </head>
+<a href="Jobs.php">Jobs</a>
+<a href="Companies.php">Companies</a>
+<a href="Student-Housing.php">Student Housing</a>
+<a href="Committee.php">Committees</a>
+
 <body>
-        <h1> Student Housing </h1>
+        <h1> Welcome </h1>
 
 <?php
-    echo "Students: ";
+    
+    echo "<a name='all' onclick='this.form.submit()' href=Attendees.php?attendees=all>All attendees</a>";
+    echo "<br>";
+    
+    echo "Number of <a name='students' onclick='this.form.submit()' href=Attendees.php?attendees=Student>students</a> attending: ";
     echo $numStudents."<br>";
     
-    echo "Pros: ";
+    echo "Number of <a name='pros' onclick='this.form.submit()' href=Attendees.php?attendees=Professional>professionals</a> attending: ";
     echo $numPros."<br>";
+    
+    echo "Number of <a name='sponsors' onclick='this.form.submit()' href=Attendees.php?attendees=Sponsor>sponsors</a> attending: ";
+    echo $numSponsors."<br>";
 
-    echo "Sponsors: ";
-    echo $numSponsors;
+    $platinumSQL = "select count(company) as num from companies where sponsor_rank = 'Platinum'";    
+    $stmt=$conn->prepare($platinumSQL);
+    $stmt->execute();
+    $platinum=(int)($stmt->fetchColumn(0));
+    
+    $goldSQL = "select count(company) as num from companies where sponsor_rank = 'Gold'";
+    $stmt=$conn->prepare($goldSQL);
+    $stmt->execute();
+    $gold=(int)($stmt->fetchColumn(0));
+    
+    $silverSQL = "select count(company) as num from companies where sponsor_rank = 'Silver'";
+    $stmt=$conn->prepare($silverSQL);
+    $stmt->execute();
+    $silver=(int)($stmt->fetchColumn(0));
+    
+    $bronzeSQL = "select count(company) as num from companies where sponsor_rank = 'Bronze'";
+    $stmt=$conn->prepare($bronzeSQL);
+    $stmt->execute();
+    $bronze=(int)($stmt->fetchColumn(0));
+    
+    echo '</br>';
+    $sponsorSum = ($platinum * 10000) + ($gold * 5000) + ($silver * 3000) + ($bronze * 1000);
+    
+    $studentSQL = "select count(id) as num from attendees where attendee_type = 'Student'";
+    $stmt=$conn->prepare($studentSQL);
+    $stmt->execute();
+    $studentNum=(int)($stmt->fetchColumn(0));
+    
+    $proSQL = "select count(id) as num from attendees where attendee_type = 'Professional'";
+    $stmt=$conn->prepare($proSQL);
+    $stmt->execute();
+    $proNum=(int)($stmt->fetchColumn(0));
+    
+    echo '</br>';
+    $attendeeSum = ($studentNum * 50) + ($proNum * 100);
+    
+    $fundingSum = $sponsorSum + $attendeeSum;
+    echo "Total funding: $". $fundingSum.'.00'.'<br>';
+    echo "Total funding from sponsors: $". $sponsorSum.'.00'.'<br>';
+    echo "Total funding from attendees: $". $attendeeSum.'.00'.'<br>';
+  
 ?>
+
+
 </body>
 </html>

@@ -27,7 +27,8 @@
     <head>
         <link rel="stylesheet" href="Student-Housing.css" />
         <title> Student Housing </title>
-    </head>
+    </head>    
+    <a href="Home Page.php">Home</a>
     <form method = "post">
     <body>
         <h1> Student Housing </h1>
@@ -37,7 +38,8 @@
             
             <?php
                 //echo "<option>". $temp.  "</option>";
-                echo "<option> -- Select Room Number -- </option>";    
+                echo "<option> -- Select Room Number -- </option>";   
+                echo "<option> All </option>";    
                 foreach ($rows as $output) {                                    
                     echo " <option> " . $output["room_number"] . " </option> ";
                 };
@@ -50,7 +52,12 @@
             </tr>
             <?php 
             if(isset($_POST['rm_num'])){
-                $sql2="select * from students where room_number = '$rm'";
+                if ($rm == "All"){
+                    $sql2="select * from students";
+                }
+                else{
+                    $sql2="select * from students where room_number = '$rm'";
+                }
                 echo "Room Number: ". $rm;
                 try {
                     $stmt2=$conn->prepare($sql2);
@@ -58,7 +65,7 @@
                     $rows2=$stmt2->fetchAll();
                     foreach ($rows2 as $output){
                         echo "<tr>";
-                        echo "<td> ".  $rm . " </td> ";
+                        echo "<td> ".  $output['room_number']. " </td> ";
                         echo "<td> ".  $output['first_name']. " " .$output['last_name'] . " </td> ";
                         echo "</tr>";
                     }
