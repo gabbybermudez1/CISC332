@@ -57,18 +57,35 @@
                 }
                 else{
                     $sql2="select * from students where room_number = '$rm'";
+                    $sql3 = "select spots from rooms where room_number = '$rm'";
+                    
+                    $stmt3=$conn->prepare($sql3);
+                    $stmt3->execute();
+                    $capacity=(int)($stmt3->fetchColumn(0));
+                                
+                    echo " Room Number: ". $rm;
+                    
+                    echo ", Capacity: ". $capacity;
                 }
-                echo "Room Number: ". $rm;
                 try {
                     $stmt2=$conn->prepare($sql2);
                     $stmt2->execute();
                     $rows2=$stmt2->fetchAll();
-                    foreach ($rows2 as $output){
+                    if (empty($rows2)){
                         echo "<tr>";
-                        echo "<td> ".  $output['room_number']. " </td> ";
-                        echo "<td> ".  $output['first_name']. " " .$output['last_name'] . " </td> ";
+                        echo "<td> ". $rm. " </td> ";
+                        echo "<td> No Students </td> ";
                         echo "</tr>";
                     }
+                    else{
+                        foreach ($rows2 as $output){
+                            echo "<tr>";
+                            echo "<td> ".  $output['room_number']. " </td> ";
+                            echo "<td> ".  $output['first_name']. " " .$output['last_name'] . " </td> ";
+                            echo "</tr>";
+                    }
+                    }
+
                 }
                 catch(Exception $e){
                     echo "Connection failed: " . $e->getMessage();
