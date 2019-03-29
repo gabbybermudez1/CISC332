@@ -52,14 +52,18 @@
                 <th> Title </th>  
                 <th> Pay </th> 
                 <th> Location </th>
+                <th> Company </th>
             </tr>
+            
             <?php 
             $sql2="select * from jobs";
             if(isset($_POST['company'])){
                 if ($company != "All"){
                     $sql2 = $sql2. " where company = '$company'";
-                }
+                }                
+            
             }
+            
             try {
                 $stmt2=$conn->prepare($sql2);
                 $stmt2->execute();
@@ -70,6 +74,8 @@
                     echo "<td> ".  $output['title']. " </td> ";                        
                     echo "<td> ".  $output['pay']. " </td> ";                        
                     echo "<td> ".  $output['location'] . " </td> ";
+                    echo "<td> ".  $output['company'] . " </td> ";
+                    
                     echo "</tr>";
                 }
             }

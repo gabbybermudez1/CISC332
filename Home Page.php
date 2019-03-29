@@ -30,6 +30,7 @@
 <a href="Companies.php">Companies</a>
 <a href="Student-Housing.php">Student Housing</a>
 <a href="Committee.php">Committees</a>
+<a href="Events.php">Events</a>
 
 <body>
         <h1> Welcome </h1>

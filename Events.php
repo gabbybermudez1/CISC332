@@ -26,6 +26,7 @@ function splitName($fullName){
 <head>
     <link rel="stylesheet" href="Events.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css"/>
+    <a href="Home Page.php">Home</a>
     <title> Events </title>
 </head>
 <body>
