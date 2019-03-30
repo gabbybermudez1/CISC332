@@ -27,6 +27,7 @@
     <head>
         <title> Jobs </title>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./center.css">
     </head>    
     
     <form method = "post">
@@ -60,62 +61,63 @@
                 </ul>
             </div>
         </nav>
-        <h1> Jobs </h1>
-          
-        <select name = 'company' id = 'company' onchange = "this.form.submit();">
+        <div class="body-container" >
+            <h1> Jobs </h1>
             
-            <?php
-            //echo "<option>". $temp ."</option>";
-            echo $company;
-            echo "<option> -- Select Company -- </option>";
-            echo "<option> All </option>";
-                foreach ($rows as $output) {
-                    echo " <option> " . $output['company'] . " </option> ";
-                };
-            ?>    
-            </select>
-        <table>
-            <?php echo "<caption>". $company. " Jobs </caption>";?>
-            <tr> 
-                <th> Title </th>  
-                <th> Pay </th> 
-                <th> Location </th>
-                <th> Company </th>
-            </tr>
-            
-            <?php 
-            $sql2="select * from jobs";
-            if(isset($_POST['company'])){
-                if ($company != "All"){
-                    $sql2 = $sql2. " where company = '$company'";
-                }                
-            
-            }
-            
-            try {
-                $stmt2=$conn->prepare($sql2);
-                $stmt2->execute();
-                $rows2=$stmt2->fetchAll();
-                foreach ($rows2 as $output){
-                   
-                    echo "<tr>";
-                    echo "<td> ".  $output['title']. " </td> ";                        
-                    echo "<td> ".  $output['pay']. " </td> ";                        
-                    echo "<td> ".  $output['location'] . " </td> ";
-                    echo "<td> ".  $output['company'] . " </td> ";
-                    
-                    echo "</tr>";
+            <select name = 'company' id = 'company' onchange = "this.form.submit();">
+                
+                <?php
+                //echo "<option>". $temp ."</option>";
+                echo $company;
+                echo "<option> -- Select Company -- </option>";
+                echo "<option> All </option>";
+                    foreach ($rows as $output) {
+                        echo " <option> " . $output['company'] . " </option> ";
+                    };
+                ?>    
+                </select>
+            <table>
+                <?php echo "<p>". $company. " Jobs </p>";?>
+                <tr> 
+                    <th> Title </th>  
+                    <th> Pay </th> 
+                    <th> Location </th>
+                    <th> Company </th>
+                </tr>
+                
+                <?php 
+                $sql2="select * from jobs";
+                if(isset($_POST['company'])){
+                    if ($company != "All"){
+                        $sql2 = $sql2. " where company = '$company'";
+                    }                
+                
                 }
-            }
-            catch(Exception $e){
-                echo "Connection failed: " . $e->getMessage();
-                die;
-            } 
-        
-            ?>
-        
-        <table>
-        
+                
+                try {
+                    $stmt2=$conn->prepare($sql2);
+                    $stmt2->execute();
+                    $rows2=$stmt2->fetchAll();
+                    foreach ($rows2 as $output){
+                    
+                        echo "<tr>";
+                        echo "<td> ".  $output['title']. " </td> ";                        
+                        echo "<td> ".  $output['pay']. " </td> ";                        
+                        echo "<td> ".  $output['location'] . " </td> ";
+                        echo "<td> ".  $output['company'] . " </td> ";
+                        
+                        echo "</tr>";
+                    }
+                }
+                catch(Exception $e){
+                    echo "Connection failed: " . $e->getMessage();
+                    die;
+                } 
+            
+                ?>
+            
+            <table>
+        </div>
     </body>
     </form>
 

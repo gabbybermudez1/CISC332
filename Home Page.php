@@ -26,11 +26,11 @@
 <head>
         <title> Home </title>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./center.css">
 </head>
 
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">CISC 332 Conference</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,10 +59,11 @@
             </ul>
         </div>
     </nav>
+    <div class='body-container'> 
+    <div>
     <h1> Welcome </h1>
 
 <?php
-    
     echo "<a name='all' onclick='this.form.submit()' href=Attendees.php?attendees=all>All attendees</a>";
     echo "<br>";
     
@@ -115,9 +116,10 @@
     echo "Total funding: $". $fundingSum.'.00'.'<br>';
     echo "Total funding from sponsors: $". $sponsorSum.'.00'.'<br>';
     echo "Total funding from attendees: $". $attendeeSum.'.00'.'<br>';
-  
-?>
 
+?>
+    </div>
+    </div>
 
 </body>
 </html>

@@ -25,6 +25,7 @@ function splitName($fullName){
 <html>
 <head>
     <link rel="stylesheet" href="Events.css" />
+    <link rel="stylesheet" href="center.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css"/>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <title> Events </title>
@@ -58,15 +59,15 @@ function splitName($fullName){
             </ul>
         </div>
     </nav>
-
-    <div class="tab_container"> 
+<div class='body-container' >
+    <div class="tab-container"> 
         <form method="POST"> 
-            <label> Day 1 </label>
-            <input type="submit"  name="day1" />
+            <button class='btn btn-primary' onclick="day1Submit()"> Day 1 </button>
+            <input type="submit"  class="day1" name="day1"  />
         </form>
         <form method="POST"> 
-            <label> Day 2 </label>
-            <input type="submit"  name="day2" />
+            <button class='btn btn-primary' onclick="day2Submit()"> Day 2 </button>
+            <input type="submit" class="day2" id="day2" name="day2" />
         </form>
     </div>
     <?php 
@@ -126,6 +127,7 @@ function splitName($fullName){
         };
     ?>
     </table>
+</div>
 </body>
 
 <script src="./tingle/src/tingle.js"></script>
@@ -178,6 +180,18 @@ const editHandler = (eventID) =>{
     formModal.open();
     sessionEditor.value = document.querySelector("#event" + eventID).innerHTML;
 }
+
+
+
+function day2Submit(){
+    document.querySelector('#day2').click();
+}
+
+function day1Submit(){
+    document.querySelector('.day1').click();
+}
+
+
 
 </script> 
 

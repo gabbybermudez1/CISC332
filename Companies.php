@@ -70,12 +70,13 @@ if (isset($_POST['submit-delete'])){
 <html>
 <head>
     <link rel="stylesheet" href="Companies.css" />
+    <link rel="stylesheet" href="center.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <title> Companies </title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">CISC 332 Conference</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -103,6 +104,7 @@ if (isset($_POST['submit-delete'])){
             </ul>
         </div>
     </nav>
+    <div class="body-container"> 
     <h1>List of Companies </h1>
     <img src='./assets/add_icon.png'  class='add-icon' onclick="formModal.open()" >
     <img src='./assets/subtract-icon.png' style="height:3%; width:3%;" onclick="deleteModal.open()" >
@@ -142,6 +144,7 @@ if (isset($_POST['submit-delete'])){
 
             ?>
     </table>
+    </div>
 </body>
 </html>
 
