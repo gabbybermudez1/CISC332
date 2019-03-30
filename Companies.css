@@ -3,10 +3,12 @@ table, tr, th, td{
 }
 
 
+
 .add-icon{
-    height: 3;
+    height: 3%;
     width: 3%;
 }
+
 
 .modal-form{
     display:flex;

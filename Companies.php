@@ -1,6 +1,16 @@
 <?php 
+
+function getCompanies($someArray){
+    $newVar = "[";
+    foreach($someArray as $rows){
+        $newVar = $newVar . "'".  $rows['company']. "'".", "; 
+    }
+    $newVar = $newVar . "]";
+    return $newVar;
+}
+
 if (isset($_POST['submit-info'])){
-    if (empty($_POST['company-input']) or ( empty($_POST['rank-input']) )  ){
+    if ( (empty($_POST['company-input']) or ( empty($_POST['rank-input']) )) and empty($_POST['submit-delete'])  ){
         echo "<script> incorrectInput = true;</script>";
     }
 
@@ -28,6 +38,32 @@ if (isset($_POST['submit-info'])){
         }
     }
 }
+
+
+// If we've deleted a company from the list
+if (isset($_POST['submit-delete'])){
+
+    $servername = "localhost";
+    $databaseName = "conference_db";
+    $username = "root";
+
+    try{
+        $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // variables to send to the database
+        $companyToDelete = $_POST['delete-company'];
+        $deleteSql = "DELETE FROM companies WHERE company='$companyToDelete'";
+        $stmt = $db->prepare($deleteSql);
+        $stmt->execute();
+        echo "<script> var deleteCompany= true; </script>";
+    }
+
+    catch(PDOException $e){
+        $errorMessage = $e->getMessage();
+        echo "<script>var connectionFailed = true;</script>";
+    }
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +78,7 @@ if (isset($_POST['submit-info'])){
 <body>
     <h1>List of Companies </h1>
     <img src='./assets/add_icon.png'  class='add-icon' onclick="formModal.open()" >
+    <img src='./assets/subtract-icon.png' style="height:3%; width:3%;" onclick="deleteModal.open()" >
     <table>
         <tr>
             <th> Company Name</th>
@@ -67,6 +104,8 @@ if (isset($_POST['submit-info'])){
                     echo "<td>" . $row["sponsor_rank"] . "</td>";
                     echo "</form></tr>";
                 }
+                $companies = getCompanies($data);
+                echo "<script> var companies=" . $companies . "</script>";
             }
 
             catch(PDOException $e){
@@ -88,7 +127,7 @@ if (isset($_POST['submit-info'])){
 var formModalContent =`
     <form method='POST' class='modal-form' action='Companies.php'>
         <div class='modal-content'> 
-            <h3 style='align-self:center;'> Edit Event</h3>
+            <h3 style='align-self:center;'> Add Event </h3>
             <label> Company </label>
             <input type="text" name="company-input"  />
             <label> Rank </label>
@@ -100,7 +139,28 @@ var formModalContent =`
             <input type='submit' class='submit-info' name='submit-info' style='display:none;'>
         </div>
     </form>
-`
+` // end string
+
+
+function  getModalOptions(){
+    var modalOptions = "<select name='delete-company'>"
+    for(var i=0; i<companies.length; i++){
+        modalOptions = modalOptions + "<option>" + companies[i] + "</option>"
+    }
+    modalOptions = modalOptions + "</select>"
+    modalOptions = modalOptions + "<input type='submit' class='submit-delete' name='submit-delete' style='display:none;'>"
+    return modalOptions;
+}
+var deleteModalContent =`
+    <form method='POST' class='modal-form' action='Companies.php'>
+        <div class='modal-content'> 
+            <h3 style='align-self:center;'> Delete Event</h3>
+            <label> Company </label>
+        ` + getModalOptions() + `
+        </div>
+    </form>
+` // end string
+
 
 // Form modal 
 var formModal = new tingle.modal({
@@ -115,6 +175,19 @@ formModal.addFooterBtn('Submit', 'tingle-btn tingle-btn--primary', function() {
     document.querySelector('.submit-info').click();
 });
 
+
+// Form modal 
+var deleteModal = new tingle.modal({
+    footer: true,
+    stickyFooter: false,
+    closeMethods: ['overlay', 'button', 'escape'],
+    closeLabel: "Close",
+    cssClass: ['custom-class-1', 'custom-class-2']
+});
+deleteModal.setContent(deleteModalContent);
+deleteModal.addFooterBtn('Submit', 'tingle-btn tingle-btn--danger', function() {
+    document.querySelector('.submit-delete').click();
+});
 
 var errorModal = new tingle.modal({
     footer: true,
@@ -131,6 +204,12 @@ errorModal.addFooterBtn('Refresh', 'tingle-btn tingle-btn--danger', function() {
 if (typeof connectionFailed !== 'undefined'){
     if(connectionFailed){
     errorModal.open()
+    }
+}
+
+if (typeof deleteCompany !== 'undefined'){
+    if(deleteCompany){
+        alert("Company was successfully deleted from the database");
     }
 }
 
