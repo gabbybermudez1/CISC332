@@ -62,12 +62,12 @@ function splitName($fullName){
 <div class='body-container' >
     <div class="tab-container"> 
         <form method="POST"> 
-            <button class='btn btn-primary' onclick="day1Submit()"> Day 1 </button>
-            <input type="submit"  class="day1" name="day1"  />
+            <!-- <button class='btn btn-primary' onclick="day1Submit()"> Day 1 </button> -->
+            <input type="submit"  class="day1" value="Day 1"  name="day1"/>
         </form>
         <form method="POST"> 
-            <button class='btn btn-primary' onclick="day2Submit()"> Day 2 </button>
-            <input type="submit" class="day2" id="day2" name="day2" />
+            <!-- <button class='btn btn-primary' onclick="console.log('hello');"> Day 2 </button> -->
+            <input type="submit"  class="day2" value="Day 2" name="day2" />
         </form>
     </div>
     <?php 
@@ -181,11 +181,6 @@ const editHandler = (eventID) =>{
     sessionEditor.value = document.querySelector("#event" + eventID).innerHTML;
 }
 
-
-
-function day2Submit(){
-    document.querySelector('#day2').click();
-}
 
 function day1Submit(){
     document.querySelector('.day1').click();
