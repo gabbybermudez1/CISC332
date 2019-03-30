@@ -26,6 +26,7 @@
 <!-- Jobs -->
     <head>
         <title> Jobs </title>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     </head>    
     <a href="Home Page.php">Home</a>
     

@@ -25,6 +25,7 @@
 <!DOCTYPE html>
 <head>
         <title> Home </title>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 </head>
 <a href="Jobs.php">Jobs</a>
 <a href="Companies.php">Companies</a>

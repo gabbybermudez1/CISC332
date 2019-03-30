@@ -21,6 +21,7 @@ $company = $_GET['company'];
 <html>
 <head>
     <link rel="stylesheet" href="Company.css" />
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <title> Company </title>
 </head>
 <body>

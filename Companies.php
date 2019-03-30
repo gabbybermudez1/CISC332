@@ -71,7 +71,7 @@ if (isset($_POST['submit-delete'])){
 <head>
     <link rel="stylesheet" href="Companies.css" />
     <link rel="stylesheet" href="./tingle/src/tingle.css">
-    
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <a href="Home Page.php">Home</a>
     <title> Companies </title>
 </head>

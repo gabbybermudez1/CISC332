@@ -22,6 +22,7 @@
 
     <a href="Home Page.php">Home</a>
     <link rel="stylesheet" href="Committee.css" />
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <title> Committees </title>
 </head>
 <body>
