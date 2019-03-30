@@ -54,6 +54,7 @@
         </div>
     </nav>
 <div class='body-container'>
+    <h1 style='margin-bottom: 25px;'> Committees </h1>
     <form method='GET'>
         <select name="committee-input" onchange="this.form.submit()"> 
             <option> -- Select Sub-Comittee -- </option>

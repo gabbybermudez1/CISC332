@@ -61,7 +61,7 @@
             </div>
         </nav>
         <div class='body-container'>
-            <h1> Student Housing </h1>
+        <h1 style='margin-bottom: 25px;'>Student Housing </h1>
             <!--$rm = $_POST['room_number'];?>-->
             <select name = 'rm_num' id = 'rm_num' onchange = "this.form.submit();">
             <!--<input type="submit" name = "submit" value = "Get selected value"/>   -->

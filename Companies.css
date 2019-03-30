@@ -1,12 +1,15 @@
-table, tr, th, td{
-    border: 1px solid black;
+
+#button-thing{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items:center;
+    
 }
 
-
-
 .add-icon{
-    height: 3%;
-    width: 3%;
+    height: 5%;
+    width: 5%;
 }
 
 

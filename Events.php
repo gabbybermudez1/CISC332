@@ -60,6 +60,7 @@ function splitName($fullName){
         </div>
     </nav>
 <div class='body-container' >
+<h1 style='margin-bottom: 25px;'> Events </h1>
     <div class="tab-container"> 
         <form method="POST"> 
             <!-- <button class='btn btn-primary' onclick="day1Submit()"> Day 1 </button> -->
@@ -119,7 +120,7 @@ function splitName($fullName){
         foreach($data as $row){
             echo "<tr>";
             echo "<td>". $row['speaker_first']. " " . $row['speaker_last'] . "</td>";
-            echo "<td> <span id='event$eventID'>" . $row['session']."</span> <a onclick='editHandler($eventID)'><img src='./assets/edit_icon.png' style='height:10%;width:10%;margin-left:10px;'/> </a></td>";
+            echo "<td> <span id='event$eventID'>" . $row['session']."</span> <a onclick='editHandler($eventID)'><img src='./assets/edit_icon.png' style='height:15%;margin-left:10px;'/> </a></td>";
             echo "<td> " . $row['start_t'] ."</td>";
             echo "<td> " . $row['end_t'] ."</td>";
             echo "</tr>";
