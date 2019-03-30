@@ -77,7 +77,7 @@
                     };
                 ?>    
                 </select>
-            <table>
+            <table class='table'>
                 <?php echo "<p>". $company. " Jobs </p>";?>
                 <tr> 
                     <th> Title </th>  

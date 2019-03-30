@@ -90,7 +90,7 @@ function splitName($fullName){
             }
         }
     ?>
-    <table>
+    <table class='table'>
     <tr> 
         <th> Speaker </th>
         <th> Session Name</th>

@@ -108,7 +108,7 @@ if (isset($_POST['submit-delete'])){
     <h1>List of Companies </h1>
     <img src='./assets/add_icon.png'  class='add-icon' onclick="formModal.open()" >
     <img src='./assets/subtract-icon.png' style="height:3%; width:3%;" onclick="deleteModal.open()" >
-    <table>
+    <table class='table'>
         <tr>
             <th> Company Name</th>
             <th> Rank </th>

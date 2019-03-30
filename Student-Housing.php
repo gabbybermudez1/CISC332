@@ -75,7 +75,7 @@
                     };
                 ?>    
                 </select>
-            <table>
+            <table class='table'>
                 <tr> 
                     <th> Room </th> 
                     <th> Students </th> 

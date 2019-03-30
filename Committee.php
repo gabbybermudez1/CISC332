@@ -69,7 +69,7 @@
         </select>     
     </form>
 
-    <table>
+    <table class='table'>
         <tr>
             <th> Committee Name</th>
             <th> Member Name</th>
