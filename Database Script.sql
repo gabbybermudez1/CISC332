@@ -165,6 +165,9 @@ INSERT INTO sessions VALUES
 UPDATE students SET room_number = '103' WHERE id = '10009';
 UPDATE rooms SET spots_taken = 1 WHERE room_number = '103';
 
+UPDATE students SET room_number = '108' WHERE id = '10004';
+UPDATE rooms SET spots_taken = 1 WHERE room_number = '108';
+
 UPDATE students SET room_number = '105' WHERE id = '10003';
 UPDATE students SET room_number = '105' WHERE id = '10006';
 UPDATE rooms SET spots_taken = 2 WHERE room_number = '105';
