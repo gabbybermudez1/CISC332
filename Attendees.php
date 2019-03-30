@@ -160,17 +160,34 @@
             else{
                 echo '<h1>'. $attendees .'</h1>';
                 echo '<title>'. $attendees. '</title>';
-                $sql = "SELECT * FROM attendees where attendee_type = '$attendees'";
-                $stmt = $db->prepare($sql);
-                $stmt->execute();
-                $data  = $stmt->fetchAll();
                 echo '<table>';
                 echo '<th>'.'Name'.'</th>';
-                foreach($data as $row){
-                    echo "<tr>";
-                    echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                    echo "</tr>";
+                if ($attendees == "Sponsor"){                    
+                    echo '<th>'.'Company'.'</th>';
+                    $sql = "SELECT * FROM sponsor_members ORDER BY first_name";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute();
+                    $data  = $stmt->fetchAll();
+                    foreach($data as $row){
+                        echo "<tr>";
+                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                        echo "<td> ".$row['company']."</td>";
+                        echo "</tr>";
+                    }
                 }
+                else{ 
+                    $sql = "SELECT * FROM attendees where attendee_type == $attendees ORDER BY first_name";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute();
+                    $data  = $stmt->fetchAll();
+                    
+                    foreach($data as $row){
+                        echo "<tr>";
+                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                        echo "</tr>";
+                    }    
+                }
+                
                 echo '</table>';
             }
         
