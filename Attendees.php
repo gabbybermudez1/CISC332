@@ -1,8 +1,7 @@
 <?php
     $servername = "localhost";
     $username = "root";
-    $conn = new PDO("mysql:host=$servername;dbname=conference_db", $username, "");
-   
+    $conn = new PDO("mysql:host=$servername;dbname=conference_db", $username, "");   
     $attendees = $_GET['attendees'];
     
     function getRms($someArray){
@@ -12,6 +11,23 @@
         }
         $newVar = $newVar . "]";
         return $newVar;
+    }
+    function getComp($compArray){
+        $newVar = "[";
+        foreach($compArray as $rows){
+            $newVar = $newVar ."'". $rows['company']."'".", ";
+        }
+        $newVar = $newVar . "]";
+        return $newVar;
+    }
+    function getId(){
+        global $conn;
+        $maxId = "SELECT max(id) from attendees";                
+        $stmt = $conn->prepare($maxId);
+        $stmt->execute();
+        $newId = (int)($stmt->fetchColumn(0));
+        return $newId + 1;
+                
     }
 ?>
 
@@ -30,11 +46,12 @@
 
         // Set up a connection to the mysql database
         try{
-            echo '<title>'. 'All Attendees'. '</title>';
-            echo '<img src="./assets/add_icon.png" class = "add-icon" onclick = "formModal.open()">';
+            
             $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if ($attendees == "all"){
+                echo '<title>'. 'All Attendees'. '</title>';
+                echo '<img src="./assets/add_icon.png" class = "add-icon" onclick = "formModal.open()">';
                 echo '<h1>'. 'All Attendees' .'</h1>';
                 $students = "SELECT * FROM attendees where attendee_type = 'Student'";
                 $stmt = $db->prepare($students);
@@ -80,12 +97,65 @@
                 }
                 echo '<br>';
                 echo '</table>';
-                $rooms= "SELECT room_number FROM rooms where spots_taken<spots";
-                $stmt = $db->prepare($rooms);
-                $stmt->execute();
-                $rmNum  = $stmt->fetchAll();
+                $rooms = "SELECT room_number FROM rooms where spots_taken < spots";
+                $company = "SELECT company FROM companies";
+                $stmt1 = $db->prepare($rooms);
+                $stmt2 = $db->prepare($company);
+                $stmt1->execute();
+                $stmt2->execute();
+                $rmNum  = $stmt1->fetchAll();
+                $allCompanies = $stmt2->fetchAll();
                 $holdRms = getRms($rmNum);
+                $holdComp = getComp($allCompanies);
                 echo "<script> var rooms = " . $holdRms . "</script>";
+                echo "<script> var company = " . $holdComp. "</script>";
+                if (isset($_POST['submit-info'])){
+                    
+                    $first = $_POST['first'];
+                    $last = $_POST['last'];
+                    $type = $_POST['attendee_type'];
+                    $id = getId();
+                    $update = "INSERT INTO attendees VALUES('$first', '$last', '$type', '$id')";                        
+                                          
+                    $stmt = $db->prepare($update);
+                    
+                    $stmt->execute();
+                    if ($type == "Sponsor"){
+                        $company = $_POST['Company'];
+                        $spons = "INSERT INTO sponsor_members VALUES('$first','$last','$id','$company')";
+                        $stmt = $db->prepare($spons);
+                        $stmt->execute();                                    
+                    }
+                    else if ($type == "Student"){                        
+                        $studentRm = $_POST['Room_Number'];
+                        
+                        if ($studentRm != "None"){                             
+                            $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', '$studentRm')";
+                            $stmt = $db->prepare($addStudent);
+                            echo "123";
+                            $stmt->execute();    
+                            echo "456";
+                            $taken = "SELECT spots_taken from rooms where room_number = '$studentRm'";
+                            $stmt = $db->prepare($taken);
+                            $stmt->execute();
+                            $taken = (int)($stmt->fetchColumn(0));   
+                            $taken = 1 + $taken;
+                            echo $taken;
+                            $addRm = "UPDATE rooms SET spots_taken = $taken WHERE room_number = '$studentRm'";
+                            $stmt = $db->prepare($addRm);
+                            $stmt->execute();
+                        }
+                        else{             
+                            $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', NULL)";
+                            $stmt = $db->prepare($students);
+                            $stmt->execute();                    
+                            
+                        }
+                    }
+                    echo "<script> var sqlSent = true </script>";
+                    
+
+                }
             }
             else{
                 echo '<h1>'. $attendees .'</h1>';
@@ -103,6 +173,7 @@
                 }
                 echo '</table>';
             }
+        
         }
         catch(PDOException $e){
             $errorMessage = $e->getMessage();
@@ -120,17 +191,17 @@
 <script>
 
 var formModalContent =`
-    <form method='POST' class='modal-form' action='Attendees.php'>
+    <form method='POST' class='modal-form'>
         <div class='modal-content'> 
-            <h3 style='align-self:center;'> Edit Event</h3>
+            <h3 style='align-self:center;'> Add Attendee</h3>
             <label> First Name </label>
             <input type="text" name="first"  />
             <label> Last Name </label>
             <input type="text" name="last"  />
             <label> Attendee </label>
-            <select  name="attendee_type" onchange='changeHandler()' >
-                <option> Sponsor </option>
+            <select  name="attendee_type" onchange='changeHandler()' >                
                 <option> Professional </option>
+                <option> Sponsor </option>
                 <option> Student </option>
              </select>
              <div class='add-something'> </div>
@@ -172,25 +243,33 @@ if (typeof connectionFailed !== 'undefined'){
 }
 
 
-if(typeof incorrectInput !== 'undefined'){
-    if (incorrectInput){
-        alert('You submitted incomplete or incorrect information. Your sql was not sent to the database');
+
+if(typeof sqlSent !== 'undefined'){
+    if (sqlSent){
+        alert('SQL sent successfully');
+        window.location.href="Attendees.php?attendees=all";
      }
 
-     else{
-         alert("SQL successfully sent");
-     }
 }
 function changeHandler(){
         
     if (event.target.value == "Student"){ 
-         var newHTML = `<label> Room Number </label>
-        <select>`
+         var newHTML = `<label> Room_Number </label>
+        <select name='Room_Number'><option> None </option>`
         for(var i=0; i < rooms.length ; i++){
             newHTML = newHTML + "<option>" + rooms[i] + "</option>"
         }
         newHTML = newHTML + "</select>"
         document.querySelector('.add-something').innerHTML = newHTML;
+    }
+    else if (event.target.value == "Sponsor"){
+        var newHTML = `<label> Company </label>
+        <select name='Company'>`
+        for(var i=0; i < company.length ; i++){
+            newHTML = newHTML + "<option>" + company[i] + "</option>"
+        }
+        newHTML = newHTML + "</select>"
+        document.querySelector('.add-something').innerHTML = newHTML;    
     }
     else {
         document.querySelector('.add-something').innerHTML = ""
