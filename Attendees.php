@@ -176,11 +176,10 @@
                     }
                 }
                 else{ 
-                    $sql = "SELECT * FROM attendees where attendee_type == $attendees ORDER BY first_name";
+                    $sql = "SELECT * FROM attendees where attendee_type = '$attendees' ORDER BY first_name";
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
-                    $data  = $stmt->fetchAll();
-                    
+                    $data  = $stmt->fetchAll();                    
                     foreach($data as $row){
                         echo "<tr>";
                         echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
