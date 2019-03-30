@@ -27,14 +27,39 @@
         <title> Home </title>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 </head>
-<a href="Jobs.php">Jobs</a>
-<a href="Companies.php">Companies</a>
-<a href="Student-Housing.php">Student Housing</a>
-<a href="Committee.php">Committees</a>
-<a href="Events.php">Events</a>
+
 
 <body>
-        <h1> Welcome </h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CISC 332 Conference</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Companies.php">Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Student-Housing.php">Student Housing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Committee.php">Committee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Events.php">Events</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <h1> Welcome </h1>
 
 <?php
     

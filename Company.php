@@ -25,6 +25,35 @@ $company = $_GET['company'];
     <title> Company </title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CISC 332 Conference</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Home Page.php">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Companies.php">Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Student-Housing.php">Student Housing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Committee.php">Committee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Events.php">Events</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
 <div class="body-container" > 
     <a href="Home Page.php">Home</a>
     <h2> <?php echo $company; ?></h2>   
