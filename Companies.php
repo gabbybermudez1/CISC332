@@ -157,7 +157,7 @@ if (isset($_POST['submit-delete'])){
 var formModalContent =`
     <form method='POST' class='modal-form' action='Companies.php'>
         <div class='modal-content'> 
-            <h3 style='align-self:center;'> Add Event </h3>
+            <h3 style='align-self:center;'> Add Company </h3>
             <label> Company </label>
             <input type="text" name="company-input"  />
             <label> Rank </label>
@@ -251,6 +251,7 @@ if(typeof incorrectInput !== 'undefined'){
 
      else{
          alert("SQL successfully sent");
+         window.location.href="Companies.php"
      }
 }
 

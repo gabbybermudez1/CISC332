@@ -28,6 +28,7 @@
         <title> Jobs </title>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="./center.css">
+        <link rel="stylesheet" href="Jobs.css">
     </head>    
     
     <form method = "post">
