@@ -79,6 +79,7 @@ function splitName($fullName){
             $start_t =date("h:i:s" , strtotime($_POST['start-time-input']));
             $end_t = date("h:i:s" , strtotime($_POST['end-time-input']));
             $speaker_first = splitName($_POST['name-input'])[0];
+            $room = $_POST['room-input'];
             
             // if size of array is 1, there is only 1 name
             if(sizeof(splitName($_POST['name-input'])) == 1 ) {
@@ -89,9 +90,14 @@ function splitName($fullName){
                 $speaker_last = splitName($_POST['name-input'])[1];
 
                 $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', 
-                end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
+                end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last', room='$room' WHERE session='$session'";
                 $stmt2 = $db->prepare($editSql);
-                $stmt2->execute();
+                try{
+                    $stmt2->execute();
+                }
+                catch(PDOException $e){
+                    echo "<script> var badSql = true</script>";
+                }
             }
         }
     ?>
@@ -216,6 +222,7 @@ const editHandler = (eventID) =>{
     startTimeEditor.value=document.querySelector("#startTime" + eventID).innerHTML;
     endTimeEditor.value=document.querySelector("#endTime" + eventID).innerHTML;
     roomEditor.value=document.querySelector("#room" + eventID).innerHTML;
+    roomEditor.value= roomEditor.value.trim();
 }
 
 </script> 
