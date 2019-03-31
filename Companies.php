@@ -110,11 +110,11 @@ if (isset($_POST['submit-delete'])){
         <img src='./assets/add_icon.png'  class='add-icon' onclick="formModal.open()" >
         <img src='./assets/subtract-icon.png' style="height:5%; width:5%;" onclick="deleteModal.open()" >
     </div>
-    <table class='table'>
-        <tr>
+    <table class='table' >
+        <thead class='thead-light'>
             <th> Company Name</th>
             <th> Rank </th>
-        </tr> 
+        </thead> 
         <?php 
             $servername = "localhost";
             $databaseName = "conference_db";
@@ -241,7 +241,8 @@ if (typeof connectionFailed !== 'undefined'){
 
 if (typeof deleteCompany !== 'undefined'){
     if(deleteCompany){
-        alert("Company was successfully deleted from the database");
+        window.location.href='Companies.php'
+
     }
 }
 

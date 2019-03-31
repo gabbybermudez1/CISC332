@@ -77,14 +77,14 @@
                     };
                 ?>    
                 </select>
-            <table class='table'>
+            <table class='table' >
                 <?php echo "<p>". $company. " Jobs </p>";?>
-                <tr> 
+                <thead class='thead-light' class='test'> 
                     <th> Title </th>  
                     <th> Pay </th> 
                     <th> Location </th>
                     <th> Company </th>
-                </tr>
+                </thead>
                 
                 <?php 
                 $sql2="select * from jobs";

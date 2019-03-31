@@ -55,11 +55,10 @@ $company = $_GET['company'];
     </nav>
 
 <div class="body-container" > 
-    <a href="Home Page.php">Home</a>
     <h2> <?php echo $company; ?></h2>   
     <a href="Companies.php">Back to List of companies</a>
     <h4> Available Positions </h4>
-    <table>
+    <table class='table'  style='width:80%'>
         <tr>
             <th> Job Title </th>
             <th> Location </th>

@@ -34,171 +34,203 @@
 <!DOCTYPE html>
 <head>
         <link rel="stylesheet" href="Companies.css"/>
+        <link rel="stylesheet" href="center.css"/>
         <link rel="stylesheet" href="./tingle/src/tingle.css"/>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-        <a href="Home Page.php">Home</a>
 </head>
 <body>
-    <?php 
-        $servername = "localhost";
-        $databaseName = "conference_db";
-        $username = "root";
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CISC 332 Conference</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Home Page.php">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Companies.php">Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Student-Housing.php">Student Housing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Committee.php">Committee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Events.php">Events</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <div class='body-container'>
+        <?php 
+            $servername = "localhost";
+            $databaseName = "conference_db";
+            $username = "root";
 
-        // Set up a connection to the mysql database
-        try{
-            
-            $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if ($attendees == "all"){
-                echo '<title>'. 'All Attendees'. '</title>';
-                echo '<img src="./assets/add_icon.png" class = "add-icon" onclick = "formModal.open()">';
-                echo '<h1>'. 'All Attendees' .'</h1>';
-                $students = "SELECT * FROM attendees where attendee_type = 'Student'";
-                $stmt = $db->prepare($students);
-                $stmt->execute();
-                $studentNames  = $stmt->fetchAll();
+            // Set up a connection to the mysql database
+            try{
                 
-                $pros = "SELECT * FROM attendees where attendee_type = 'Professional'";
-                $stmt = $db->prepare($pros);
-                $stmt->execute();
-                $proNames  = $stmt->fetchAll();
-                
-                $sponsors = "SELECT * FROM attendees where attendee_type = 'Sponsor'";
-                $stmt = $db->prepare($sponsors);
-                $stmt->execute();
-                $sponsorNames  = $stmt->fetchAll();
-                
-                echo '<table>';
-                echo '<th>'.'Sponsors'.'</th>';
-                foreach($sponsorNames as $row){
-                    echo "<tr>";
-                    echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                    echo "</tr>";
-                }
-                echo '</table>';
-                echo '<br>';
-                
-                echo '<table>';
-                echo '<th>'.'Professionals'.'</th>';
-                foreach($proNames as $row){
-                    echo "<tr>";
-                    echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                    echo "</tr>";
-                }
-                echo '</table>';
-                echo '<br>';
-                
-                echo '<table>';
-                echo '<th>'.'Students'.'</th>';
-                foreach($studentNames as $row){
-                    echo "<tr>";
-                    echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                    echo "</tr>";
-                }
-                echo '<br>';
-                echo '</table>';
-                $rooms = "SELECT room_number FROM rooms where spots_taken < spots";
-                $company = "SELECT company FROM companies";
-                $stmt1 = $db->prepare($rooms);
-                $stmt2 = $db->prepare($company);
-                $stmt1->execute();
-                $stmt2->execute();
-                $rmNum  = $stmt1->fetchAll();
-                $allCompanies = $stmt2->fetchAll();
-                $holdRms = getRms($rmNum);
-                $holdComp = getComp($allCompanies);
-                echo "<script> var rooms = " . $holdRms . "</script>";
-                echo "<script> var company = " . $holdComp. "</script>";
-                if (isset($_POST['submit-info'])){
-                    
-                    $first = $_POST['first'];
-                    $last = $_POST['last'];
-                    $type = $_POST['attendee_type'];
-                    $id = getId();
-                    $update = "INSERT INTO attendees VALUES('$first', '$last', '$type', '$id')";                        
-                                          
-                    $stmt = $db->prepare($update);
-                    
+                $db = new PDO("mysql:host=$servername;dbname=$databaseName", $username);
+                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                if ($attendees == "all"){
+                    echo '<title>'. 'All Attendees'. '</title>';
+                    echo"<div style='display:flex; flex-direction: row; justify-content:center; align-items:center; margin-left: 10px;'> ";
+                    echo '<h1 style="margin-right: 15px; margin-bottom:20px;">'. 'All Attendees' .'</h1>';
+                    echo '<img src="./assets/add_icon.png" class = "add-icon" onclick = "formModal.open()">';
+                    echo"</div> ";
+                    $students = "SELECT * FROM attendees where attendee_type = 'Student'";
+                    $stmt = $db->prepare($students);
                     $stmt->execute();
-                    if ($type == "Sponsor"){
-                        $company = $_POST['Company'];
-                        $spons = "INSERT INTO sponsor_members VALUES('$first','$last','$id','$company')";
-                        $stmt = $db->prepare($spons);
-                        $stmt->execute();                                    
+                    $studentNames  = $stmt->fetchAll();
+                    
+                    $pros = "SELECT * FROM attendees where attendee_type = 'Professional'";
+                    $stmt = $db->prepare($pros);
+                    $stmt->execute();
+                    $proNames  = $stmt->fetchAll();
+                    
+                    $sponsors = "SELECT * FROM attendees where attendee_type = 'Sponsor'";
+                    $stmt = $db->prepare($sponsors);
+                    $stmt->execute();
+                    $sponsorNames  = $stmt->fetchAll();
+                    echo "<div style='display:flex;flex-direction:row; justify-content: space-evenly;  width: 100%'>";
+                    echo '<table>';
+                    echo '<th>'.'Sponsors'.'</th>';
+                    foreach($sponsorNames as $row){
+                        echo "<tr>";
+                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                        echo "</tr>";
                     }
-                    else if ($type == "Student"){                        
-                        $studentRm = $_POST['Room_Number'];
+                    echo '</table>';
+                    echo '<br>';
+                    
+                    echo '<table>';
+                    echo '<th>'.'Professionals'.'</th>';
+                    foreach($proNames as $row){
+                        echo "<tr>";
+                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                        echo "</tr>";
+                    }
+                    echo '</table>';
+                    echo '<br>';
+                    
+                    echo '<table>';
+                    echo '<th>'.'Students'.'</th>';
+                    foreach($studentNames as $row){
+                        echo "<tr>";
+                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                        echo "</tr>";
+                    }
+                    echo '<br>';
+                    echo '</table>';
+                    echo "</div>";
+                    $rooms = "SELECT room_number FROM rooms where spots_taken < spots";
+                    $company = "SELECT company FROM companies";
+                    $stmt1 = $db->prepare($rooms);
+                    $stmt2 = $db->prepare($company);
+                    $stmt1->execute();
+                    $stmt2->execute();
+                    $rmNum  = $stmt1->fetchAll();
+                    $allCompanies = $stmt2->fetchAll();
+                    $holdRms = getRms($rmNum);
+                    $holdComp = getComp($allCompanies);
+                    echo "<script> var rooms = " . $holdRms . "</script>";
+                    echo "<script> var company = " . $holdComp. "</script>";
+                    if (isset($_POST['submit-info'])){
                         
-                        if ($studentRm != "None"){                             
-                            $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', '$studentRm')";
-                            $stmt = $db->prepare($addStudent);
-                            echo "123";
-                            $stmt->execute();    
-                            echo "456";
-                            $taken = "SELECT spots_taken from rooms where room_number = '$studentRm'";
-                            $stmt = $db->prepare($taken);
-                            $stmt->execute();
-                            $taken = (int)($stmt->fetchColumn(0));   
-                            $taken = 1 + $taken;
-                            echo $taken;
-                            $addRm = "UPDATE rooms SET spots_taken = $taken WHERE room_number = '$studentRm'";
-                            $stmt = $db->prepare($addRm);
-                            $stmt->execute();
+                        $first = $_POST['first'];
+                        $last = $_POST['last'];
+                        $type = $_POST['attendee_type'];
+                        $id = getId();
+                        $update = "INSERT INTO attendees VALUES('$first', '$last', '$type', '$id')";                        
+                                            
+                        $stmt = $db->prepare($update);
+                        
+                        $stmt->execute();
+                        if ($type == "Sponsor"){
+                            $company = $_POST['Company'];
+                            $spons = "INSERT INTO sponsor_members VALUES('$first','$last','$id','$company')";
+                            $stmt = $db->prepare($spons);
+                            $stmt->execute();                                    
                         }
-                        else{             
-                            $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', NULL)";
-                            $stmt = $db->prepare($students);
-                            $stmt->execute();                    
+                        else if ($type == "Student"){                        
+                            $studentRm = $_POST['Room_Number'];
                             
+                            if ($studentRm != "None"){                             
+                                $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', '$studentRm')";
+                                $stmt = $db->prepare($addStudent);
+                                echo "123";
+                                $stmt->execute();    
+                                echo "456";
+                                $taken = "SELECT spots_taken from rooms where room_number = '$studentRm'";
+                                $stmt = $db->prepare($taken);
+                                $stmt->execute();
+                                $taken = (int)($stmt->fetchColumn(0));   
+                                $taken = 1 + $taken;
+                                echo $taken;
+                                $addRm = "UPDATE rooms SET spots_taken = $taken WHERE room_number = '$studentRm'";
+                                $stmt = $db->prepare($addRm);
+                                $stmt->execute();
+                            }
+                            else{             
+                                $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', NULL)";
+                                $stmt = $db->prepare($students);
+                                $stmt->execute();                    
+                                
+                            }
+                        }
+                        echo "<script> var sqlSent = true </script>";
+                        
+
+                    }
+                }
+                else{
+                    echo '<h1>'. $attendees .'</h1>';
+                    echo '<title>'. $attendees. '</title>';
+                    echo '<table>';
+                    echo '<th>'.'Name'.'</th>';
+                    if ($attendees == "Sponsor"){                    
+                        echo '<th>'.'Company'.'</th>';
+                        $sql = "SELECT * FROM sponsor_members ORDER BY first_name";
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute();
+                        $data  = $stmt->fetchAll();
+                        foreach($data as $row){
+                            echo "<tr>";
+                            echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                            echo "<td> ".$row['company']."</td>";
+                            echo "</tr>";
                         }
                     }
-                    echo "<script> var sqlSent = true </script>";
-                    
-
-                }
-            }
-            else{
-                echo '<h1>'. $attendees .'</h1>';
-                echo '<title>'. $attendees. '</title>';
-                echo '<table>';
-                echo '<th>'.'Name'.'</th>';
-                if ($attendees == "Sponsor"){                    
-                    echo '<th>'.'Company'.'</th>';
-                    $sql = "SELECT * FROM sponsor_members ORDER BY first_name";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute();
-                    $data  = $stmt->fetchAll();
-                    foreach($data as $row){
-                        echo "<tr>";
-                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                        echo "<td> ".$row['company']."</td>";
-                        echo "</tr>";
+                    else{ 
+                        $sql = "SELECT * FROM attendees where attendee_type = '$attendees' ORDER BY first_name";
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute();
+                        $data  = $stmt->fetchAll();                    
+                        foreach($data as $row){
+                            echo "<tr>";
+                            echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
+                            echo "</tr>";
+                        }    
                     }
+                    
+                    echo '</table>';
                 }
-                else{ 
-                    $sql = "SELECT * FROM attendees where attendee_type = '$attendees' ORDER BY first_name";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute();
-                    $data  = $stmt->fetchAll();                    
-                    foreach($data as $row){
-                        echo "<tr>";
-                        echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                        echo "</tr>";
-                    }    
-                }
-                
-                echo '</table>';
+            
             }
-        
-        }
-        catch(PDOException $e){
-            $errorMessage = $e->getMessage();
-            echo "<script>var connectionFailed = true;</script>";
-        }
+            catch(PDOException $e){
+                $errorMessage = $e->getMessage();
+                echo "<script>var connectionFailed = true;</script>";
+            }
 
-        $db = null;
-    ?>
-
+            $db = null;
+        ?>
+    </div>
 </body>
 </html>
 <script src="./tingle/src/tingle.js"> 

@@ -70,11 +70,11 @@
         </select>     
     </form>
 
-    <table class='table'>
-        <tr>
+    <table class='table' >
+        <thead class='thead-light'>
             <th> Committee Name</th>
             <th> Member Name</th>
-        </tr>
+        </thead>
         <?php 
         if (isset($_GET['committee-input'])){
             $subcommittee_name = $_GET['committee-input'];

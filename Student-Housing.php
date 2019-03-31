@@ -75,11 +75,11 @@
                     };
                 ?>    
                 </select>
-            <table class='table'>
-                <tr> 
+            <table class='table' >
+                <thead class='thead-light'> 
                     <th> Room </th> 
                     <th> Students </th> 
-                </tr>
+                </thead>
                 <?php 
                 if(isset($_POST['rm_num'])){
                     if ($rm == "All"){

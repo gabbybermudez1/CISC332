@@ -74,30 +74,33 @@ function splitName($fullName){
     <?php 
         if (isset($_POST['event-changes'])){
             $session = $_POST['session-input'];
-            $session_day = "Day ". $_POST['day-input'];
+            $session_day = $_POST['day-input'];
             $start_t =date("h:i:s" , strtotime($_POST['start-time-input']));
             $end_t = date("h:i:s" , strtotime($_POST['end-time-input']));
             $speaker_first = splitName($_POST['name-input'])[0];
-            $speaker_last = splitName($_POST['name-input'])[1];
-
-            if( ($session_day != "Day 1" and $session_day != "Day 2" ) or (!isset($speaker_last) ) ) {
-                echo "You've entered invalid information. Nothing was updated in the database. Please try again";
+            
+            // if size of array is 1, there is only 1 name
+            if(sizeof(splitName($_POST['name-input'])) == 1 ) {
+                echo "<script> var badSql = true </script> ";
             }
 
             else{
-                $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
+                $speaker_last = splitName($_POST['name-input'])[1];
+                $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', 
+                end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
                 $stmt2 = $db->prepare($editSql);
                 $stmt2->execute();
             }
         }
     ?>
-    <table class='table'>
-    <tr> 
+    <table class='table' >
+    <thead class='thead-light'> 
         <th> Speaker </th>
         <th> Session Name</th>
         <th> Start Time </th>
         <th> End Time </th>
-    </tr>
+        <th> Room </th>
+    </thead>
     <?php 
         // Set up a connection to the mysql database
         $databaseName = "conference_db";
@@ -119,10 +122,11 @@ function splitName($fullName){
         $eventID = 0;
         foreach($data as $row){
             echo "<tr>";
-            echo "<td>". $row['speaker_first']. " " . $row['speaker_last'] . "</td>";
+            echo "<td><span id='speaker$eventID'>". $row['speaker_first']. " " . $row['speaker_last'] . "</span></td>";
             echo "<td> <span id='event$eventID'>" . $row['session']."</span> <a onclick='editHandler($eventID)'><img src='./assets/edit_icon.png' style='height:15%;margin-left:10px;'/> </a></td>";
-            echo "<td> " . $row['start_t'] ."</td>";
-            echo "<td> " . $row['end_t'] ."</td>";
+            echo "<td><span id='startTime$eventID'> " . $row['start_t'] ."</span></td>";
+            echo "<td><span id='endTime$eventID'> " . $row['end_t'] ."</span></td>";
+            echo "<td><span id='room$eventID'> " . $row['room'] ."</span></td>";
             echo "</tr>";
             $eventID++;
         };
@@ -135,20 +139,45 @@ function splitName($fullName){
 
 
 <script>
+
+var errorModal = new tingle.modal({
+    footer: true,
+    stickyFooter: false,
+    closeMethods: ['overlay', 'button', 'escape'],
+    closeLabel: "Close",
+    cssClass: ['custom-class-1', 'custom-class-2'],
+});
+errorModal.setContent('<h2>The information entered was incorrect. The SQL was not sent. Please try again </h2>');
+errorModal.addFooterBtn('Got it', 'tingle-btn tingle-btn--danger', function() {
+    errorModal.close();
+});
+
+
+if (typeof badSql !== 'undefined'){
+    if(badSql){
+        errorModal.open();
+    }
+}
+
 let modalContent = `
                 <form class="modal-form" name='modal-form' method="POST" action='Events.php'  > 
                 <div class='modal-content'>
                         <h3 style='align-self:center;'> Edit Event</h3>
-                        <label> Speaker Name (First and Last) </label>
-                        <input type="text" name="name-input"  />
+                        <label > Speaker Name (First and Last) </label>
+                        <input type="text" name="name-input" id='name-editor' />
                         <label> Session </label>
                         <input type="text" id="session-editor" name="session-input" />
                         <label> Day </label>
-                        <input type="text" name="day-input" />
+                        <select name='day-input' value="Day 1"> 
+                            <option>Day 1</option>
+                            <option>Day 2</option>
+                        </select>
                         <label> Start Time </label>
-                        <input type="text" name="start-time-input"  />
+                        <input type="text" name="start-time-input"  id='start-time-editor' />
                         <label> End Time </label>
-                        <input type="text"  name="end-time-input"/>
+                        <input type="text"  name="end-time-input" id='end-time-editor'/>
+                        <label> Room </label>
+                        <input type="text"  name="room-input" id='room-editor'/>
                         <input type=submit name="event-changes" class='submit-form' style='display:none;'/>
                 </div>
                 </form>
@@ -177,15 +206,20 @@ formModal.addFooterBtn('Submit', 'tingle-btn tingle-btn--primary', function() {
 formModal.setContent(modalContent);
 
 const editHandler = (eventID) =>{
+    var nameEditor = document.querySelector('#name-editor');
     var sessionEditor = document.querySelector('#session-editor');
+    var startTimeEditor = document.querySelector('#start-time-editor');
+    var endTimeEditor = document.querySelector('#end-time-editor');
+    var roomEditor = document.querySelector('#room-editor')
     formModal.open();
     sessionEditor.value = document.querySelector("#event" + eventID).innerHTML;
+    nameEditor.value=document.querySelector("#speaker" + eventID).innerHTML;
+    startTimeEditor.value=document.querySelector("#startTime" + eventID).innerHTML;
+    endTimeEditor.value=document.querySelector("#endTime" + eventID).innerHTML;
+    roomEditor.value=document.querySelector("#room" + eventID).innerHTML;
+
 }
 
-
-function day1Submit(){
-    document.querySelector('.day1').click();
-}
 
 
 
