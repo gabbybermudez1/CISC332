@@ -10,7 +10,7 @@ try{
     
 }
 catch(PDOException $e){
-    echo "Connection failed: " . $e->getMessage();
+    echo "<script> var badSql = true</script>";
 }
 
 // Helper function
@@ -60,7 +60,7 @@ function splitName($fullName){
         </div>
     </nav>
 <div class='body-container' >
-<h1 style='margin-bottom: 25px;'> Events </h1>
+<h1 style='margin-bottom: 25px; margin-top:25px; '> Events </h1>
     <div class="tab-container"> 
         <form method="POST"> 
             <!-- <button class='btn btn-primary' onclick="day1Submit()"> Day 1 </button> -->

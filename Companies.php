@@ -105,7 +105,7 @@ if (isset($_POST['submit-delete'])){
         </div>
     </nav>
     <div class="body-container"> 
-    <h1 style='margin-bottom: 25px;'>List of Companies </h1>
+    <h1 style='margin-bottom: 25px; margin-top:25px; '>List of Companies </h1>
     <div id='button-thing'>
         <img src='./assets/add_icon.png'  class='add-icon' onclick="formModal.open()" >
         <img src='./assets/subtract-icon.png' style="height:5%; width:5%;" onclick="deleteModal.open()" >

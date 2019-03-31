@@ -63,7 +63,7 @@
             </div>
         </nav>
         <div class="body-container" >
-        <h1 style='margin-bottom: 25px;'> Jobs </h1>
+        <h1 style='margin-bottom: 25px; margin-top:25px; '> Jobs </h1>
             
             <select name = 'company' id = 'company' onchange = "this.form.submit();">
                 

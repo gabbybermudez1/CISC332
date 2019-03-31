@@ -61,7 +61,7 @@
     </nav>
     <div class='body-container'> 
     <div>
-    <h1> Welcome </h1>
+    <h1 style='margin-bottom: 25px; margin-top:25px;' > Welcome </h1>
 
 <?php
     echo "<a name='all' onclick='this.form.submit()' href=Attendees.php?attendees=all>All attendees</a>";
