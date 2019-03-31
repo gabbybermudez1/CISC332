@@ -89,7 +89,7 @@ CREATE TABLE sessions(
     start_t TIME NOT NULL,
     end_t TIME NOT NULL,
     room CHAR(3) NOT NULL,
-    PRIMARY KEY (room, start_t),
+    PRIMARY KEY (room, start_t, session_day),
     FOREIGN KEY (speaker_id) 
         REFERENCES attendees(id)
         ON DELETE CASCADE
@@ -175,4 +175,7 @@ UPDATE rooms SET spots_taken = 2 WHERE room_number = '105';
 UPDATE students SET room_number = '104' WHERE id = '10010';
 UPDATE students SET room_number = '104' WHERE id = '10012';
 UPDATE rooms SET spots_taken = 2 WHERE room_number = '104';
-    
+
+
+-- source C:/Users/gabby/Documents/School/CISC332_Conference/Database Script.sql
+

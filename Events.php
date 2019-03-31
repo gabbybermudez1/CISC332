@@ -71,6 +71,7 @@ function splitName($fullName){
             <input type="submit"  class="day2" value="Day 2" name="day2" />
         </form>
     </div>
+    <!-- This is where the update sql gets sent to the database -->
     <?php 
         if (isset($_POST['event-changes'])){
             $session = $_POST['session-input'];
@@ -86,6 +87,7 @@ function splitName($fullName){
 
             else{
                 $speaker_last = splitName($_POST['name-input'])[1];
+
                 $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', 
                 end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last'  WHERE session='$session'";
                 $stmt2 = $db->prepare($editSql);
@@ -102,7 +104,6 @@ function splitName($fullName){
         <th> Room </th>
     </thead>
     <?php 
-        // Set up a connection to the mysql database
         $databaseName = "conference_db";
         $username = "root";
         $servername = "localhost";
@@ -110,11 +111,9 @@ function splitName($fullName){
         // if either day1 or day2 was selected
         if (isset($_POST["day2"]) ){ 
             $sql = $sql. " WHERE session_day='Day 2'";
-            // echo $sql;
         }
         else{
             $sql = $sql. " WHERE session_day='Day 1'";
-            // echo $sql;
         }
         $stmt = $db->prepare($sql);
         $stmt->execute(); 
@@ -139,7 +138,6 @@ function splitName($fullName){
 
 
 <script>
-
 var errorModal = new tingle.modal({
     footer: true,
     stickyFooter: false,
@@ -205,6 +203,7 @@ formModal.addFooterBtn('Submit', 'tingle-btn tingle-btn--primary', function() {
 
 formModal.setContent(modalContent);
 
+// Edit handler opens the modal and prepopulates it with the current values 
 const editHandler = (eventID) =>{
     var nameEditor = document.querySelector('#name-editor');
     var sessionEditor = document.querySelector('#session-editor');
@@ -217,16 +216,24 @@ const editHandler = (eventID) =>{
     startTimeEditor.value=document.querySelector("#startTime" + eventID).innerHTML;
     endTimeEditor.value=document.querySelector("#endTime" + eventID).innerHTML;
     roomEditor.value=document.querySelector("#room" + eventID).innerHTML;
-
 }
 
-
-
-
 </script> 
-
-
-
 </html>
 
 
+<!-- SQL TO RETURN datetime of event -->
+<!-- SELECT session_day, (
+    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), start_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), start_t))
+) AS start_datetime, (
+    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), end_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), end_t))
+) AS end_datetime
+FROM sessions;
+
+SELECT UNIX_TIMESTAMP(start_datetime) as 'start_time_since epoch', UNIX_TIMESTAMP(end_datetime) as 'end_time_since epoch' from (
+SELECT session_day, (
+    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), start_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), start_t))
+) AS start_datetime, (
+    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), end_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), end_t))
+) AS end_datetime
+FROM sessions) AS complicated; -->
