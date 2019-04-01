@@ -89,12 +89,12 @@ function timeToMinutes($time){
             $startMinutes = timeToMinutes($start_t);
             $conflict = false;
 
-            $stmt = $db->prepare("SELECT * from sessions where session_day='$session_day'"); 
+            $stmt = $db->prepare("SELECT * from sessions where session_day='$session_day' and session !='$session'"); 
             $stmt ->execute();
             $allTimes = $stmt->fetchAll();
             $conflict = false; 
             foreach($allTimes as $rows){
-                if ( (timeToMinutes($rows['start_t']) <= $startMinutes)  and ( $startMinutes <= timeToMinutes($rows['end_t'])) and ($room == $rows['room']) and $session != $rows['session']){
+                if ( (timeToMinutes($rows['start_t']) <= $startMinutes)  and ( $startMinutes < timeToMinutes($rows['end_t'])) and ($room == $rows['room'])){
                     $conflict = true;
                     break;
                 }
@@ -251,20 +251,3 @@ const editHandler = (eventID) =>{
 
 </script> 
 </html>
-
-
-<!-- SQL TO RETURN datetime of event -->
-<!-- SELECT session_day, (
-    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), start_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), start_t))
-) AS start_datetime, (
-    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), end_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), end_t))
-) AS end_datetime
-FROM sessions;
-
-SELECT UNIX_TIMESTAMP(start_datetime) as 'start_time_since epoch', UNIX_TIMESTAMP(end_datetime) as 'end_time_since epoch' from (
-SELECT session_day, (
-    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), start_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), start_t))
-) AS start_datetime, (
-    if(session_day='Day 1',TIMESTAMP(STR_TO_DATE('01-04-2019','%d-%m-%Y'), end_t),TIMESTAMP(STR_TO_DATE('02-04-2019','%d-%m-%Y'), end_t))
-) AS end_datetime
-FROM sessions) AS complicated; -->
