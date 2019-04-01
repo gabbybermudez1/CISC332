@@ -195,7 +195,7 @@
                     echo '<table>';
                     echo '<th>'.'Name'.'</th>';
                     if ($attendees == "Sponsor"){                    
-                        echo '<th>'.'Company'.'</th>';
+                        echo '<th style="padding-left: 20px;">'.'Company'.'</th>';
                         $sql = "SELECT * FROM sponsor_members ORDER BY first_name";
                         $stmt = $db->prepare($sql);
                         $stmt->execute();
@@ -203,7 +203,7 @@
                         foreach($data as $row){
                             echo "<tr>";
                             echo "<td> ".$row['first_name']." ".$row['last_name']."</td>";
-                            echo "<td> ".$row['company']."</td>";
+                            echo "<td style='padding-left: 20px;'> ".$row['company']."</td>";
                             echo "</tr>";
                         }
                     }

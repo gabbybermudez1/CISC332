@@ -186,7 +186,7 @@ function  getModalOptions(){
 var deleteModalContent =`
     <form method='POST' class='modal-form' action='Companies.php'>
         <div class='modal-content'> 
-            <h3 style='align-self:center;'> Delete Event</h3>
+            <h3 style='align-self:center;'> Delete Company</h3>
             <label> Company </label>
         ` + getModalOptions() + `
         </div>
