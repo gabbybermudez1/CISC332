@@ -18,9 +18,14 @@ function splitName($fullName){
     $nameArray = preg_split("~\s~",$fullName);
     return $nameArray;
 }
+
+function timeToMinutes($time){
+    $minutes = (int)date('i',strtotime($time));
+    $hours = (int) date('H',strtotime($time));
+    return (($hours * 60) + $minutes);
+}
+
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,19 +81,35 @@ function splitName($fullName){
         if (isset($_POST['event-changes'])){
             $session = $_POST['session-input'];
             $session_day = $_POST['day-input'];
-            $start_t =date("h:i:s" , strtotime($_POST['start-time-input']));
-            $end_t = date("h:i:s" , strtotime($_POST['end-time-input']));
+            $start_t =date("H:i:s" , strtotime($_POST['start-time-input']));
+            $end_t = date("H:i:s" , strtotime($_POST['end-time-input']));
             $speaker_first = splitName($_POST['name-input'])[0];
             $room = $_POST['room-input'];
             
-            // if size of array is 1, there is only 1 name
-            if(sizeof(splitName($_POST['name-input'])) == 1 ) {
+            $startMinutes = timeToMinutes($start_t);
+            $conflict = false;
+
+            $stmt = $db->prepare("SELECT * from sessions where session_day='$session_day'"); 
+            $stmt ->execute();
+            $allTimes = $stmt->fetchAll();
+            $conflict = false; 
+            foreach($allTimes as $rows){
+                if ( (timeToMinutes($rows['start_t']) <= $startMinutes)  and ( $startMinutes <= timeToMinutes($rows['end_t'])) and ($room == $rows['room']) and $session != $rows['session']){
+                    $conflict = true;
+                    break;
+                }
+            }
+
+
+            // if size of array is 1, there is only 1 name 
+            // sizeof(splitName($_POST['name-input'])== 1  or 
+            if( ($conflict == true) or sizeof(splitName($_POST['name-input'])) == 1 ) {
                 echo "<script> var badSql = true </script> ";
             }
 
+            
             else{
                 $speaker_last = splitName($_POST['name-input'])[1];
-
                 $editSql = "UPDATE sessions SET  session='$session', session_day='$session_day', start_t='$start_t', 
                 end_t='$end_t', speaker_first='$speaker_first',speaker_last='$speaker_last', room='$room' WHERE session='$session'";
                 $stmt2 = $db->prepare($editSql);
@@ -223,6 +244,9 @@ const editHandler = (eventID) =>{
     endTimeEditor.value=document.querySelector("#endTime" + eventID).innerHTML;
     roomEditor.value=document.querySelector("#room" + eventID).innerHTML;
     roomEditor.value= roomEditor.value.trim();
+    startTimeEditor = startTimeEditor.value.trim();
+    endTimeEditor = endTimeEditor.value.trim();
+
 }
 
 </script> 

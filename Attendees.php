@@ -179,7 +179,7 @@
                             }
                             else{             
                                 $addStudent = "INSERT INTO students VALUES('$first', '$last', '$id', NULL)";
-                                $stmt = $db->prepare($students);
+                                $stmt = $db->prepare($addStudent);
                                 $stmt->execute();                    
                                 
                             }
